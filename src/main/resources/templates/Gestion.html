@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Productos | MULTIPRO PERU S.A.C.</title>
-    <link rel="stylesheet" href="/css/stylesgestion.css">
-    <link rel="stylesheet" href="/css/modals.css"></link>
+    <title>Inventario | MULTIPRO PERU S.A.C.</title>
+    <link rel="stylesheet" href="stylesgestion.css">
+    <link rel="stylesheet" href="modals.css"></link>
 </head>
-
 <body>
 
 
@@ -15,68 +13,84 @@
     <h1>MULTIPRO PERU S.A.C.</h1>
     <span>Sistema de Inventario</span>
 </header>
-<nav>
-    <ul>
-        <li><a href="/Categoria">Lista de Categorías</a></li>
-        <li><a href="/Contacto">Contacto</a></li>
-        <li><a href="/Main">Menú Principal</a></li>
-        <li><a href="/Metrica">Métricas</a></li>
-        <li><a href="/Publicidad.">Publicidad</a></li>
-        <li><a href="/Usuario">Usuarios</a></li>
-        <li><a href="/GestionIngreso">Ingresos</a></li>
-        <li><a href="/Gestionsalidas">Salidas</a></li>
 
-    </ul>
-</nav>
 
 <main class="container">
 
 
     <div class="header-section">
-        <h2><b>Lista de Productos</b></h2>
-        <a href="/Producto" class="btn-agregar">+ Nuevo Producto</a>
+        <h2>Gestión de Inventario</h2>
+    <a href="Producto.html" class="btn-agregar">+ Nuevo Producto</a>
     </div>
 
 
     <div class="tabla-contenedor">
         <table>
             <thead>
-            <tr>
-                <th>ID</th>
-                <th>Producto</th>
-                <th>Operador</th>
-                <th>Cantidad</th>
-                <th>Categoria</th>
-                <th>Acción</th>
-            </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Producto</th>
+                    <th>Operador</th>
+                    <th>Cantidad</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
             </thead>
 
 
             <tbody>
-            <tr th:each="p : ${productos}">
-                <td th:text="${p.id_Producto}"></td>
-                <td th:text="${p.proNombre}"></td>
-                <td th:text="${p.proOperador}"></td>
+                <tr>
+                    <td>001</td>
+                    <td>Chip SIM</td>
+                    <td>Movistar</td>
+                    <td>150</td>
+                    <td><span class="estado alto">Entregado</span></td>
+                    <td><a href="Producto.html" class="edit">Editar</a></td>
+                </tr>
 
-                <!-- STOCK (IMPORTANTE) -->
-                <td th:text="${p.stock}"></td>
 
-                <td th:text="${p.categoria.nombre}"></td>
+                <tr>
+                    <td>002</td>
+                    <td>Chip SIM</td>
+                    <td>Entel</td>
+                    <td>40</td>
+                    <td><span class="estado medio">Proceso</span></td>
+                    <td><a href="Producto.html" class="edit">Editar</a></td>
+                </tr>
 
-                <td>
-                    <!-- EDITAR -->
-                    <a th:href="@{'/editarProducto/' + ${p.id_Producto}}" class="btn">
-                        Editar
-                    </a>
 
-                    <!-- ELIMINAR -->
-                    <a th:href="@{'/eliminarProducto/' + ${p.id_Producto}}"
-                       class="btn-eliminar"
-                       onclick="return confirm('¿Eliminar producto?')">
-                        X
-                    </a>
-                </td>
-            </tr>
+                <tr>
+                    <td>003</td>
+                    <td>Paquete Delivery</td>
+                    <td>General</td>
+                    <td>15</td>
+                    <td><span class="estado bajo">No Entregado</span></td>
+                    <td><a href="Producto.html" class="edit">Editar</a></td>
+                </tr>
+
+
+                <tr>
+                    <td>004</td>
+                    <td>Router Portátil</td>
+                    <td>Movistar</td>
+                    <td>10</td>
+                    <td><span class="estado negado">Reprogramado</span></td>
+                    <td><a href="Producto.html" class="edit">Editar</a></td>
+                   
+                </tr>
+
+
+                 <tr>
+                    <td>005</td>
+                    <td>Celular Samsung S26</td>
+                    <td>Movistar</td>
+                    <td>10</td>
+                    <td><span class="estado cancelado">Cancelado</span></td>
+                    <td><a href="Producto.html">Editar</a></td>
+                   
+                </tr>
+
+
             </tbody>
         </table>
     </div>
@@ -84,12 +98,11 @@
 
 </main>
 
+<script src="modals.js"></script>
 
 <footer>
     <p>© 2026 MULTIPRO PERU S.A.C. | Sistema Interno</p>
 </footer>
 
-
 </body>
-
 </html>
