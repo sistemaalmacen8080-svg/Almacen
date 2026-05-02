@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuarios | MULTIPRO PERU S.A.C.</title>
+    <link rel="stylesheet" href="/css/stylesusuario.css">
+    <link rel="stylesheet" href="/css/modals.css"></link>
+</head>
+
+<body>
+
+
+<header class="topbar">
+    <h1>MULTIPRO PERU S.A.C.</h1>
+    <span>Gestión de Usuarios</span>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="/Categoria">Lista de Categorías</a></li>
+        <li><a href="/Contacto">Contacto</a></li>
+        <li><a href="/Gestion">Lista de Productos</a></li>
+        <li><a href="/Main">Menú Principal</a></li>
+        <li><a href="/Metrica">Métricas</a></li>
+        <li><a href="/Publicidad">Publicidad</a></li>
+        <li><a href="/GestionIngreso">Ingresos</a></li>
+        <li><a href="/Gestionsalidas">Salidas</a></li>
+    </ul>
+</nav>
+
+<main class="container">
+
+    <div class="header-section">
+        <h2><b>Lista de Usuarios</b></h2>
+        <a href="/NuevoUsu" class="btn-agregar">+ Nuevo Usuario</a>
+    </div>
+
+    <section class="tabla-contenedor">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Usuario</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+
+
+            <tbody>
+            <tr th:each="u : ${usuarios}">
+                <td th:text="${u.id_Usuario}"></td>
+                <td th:text="${u.usuNombre}"></td>
+                <td th:text="${u.usuCorreo}"></td>
+                <td th:text="${u.usuNombre}"></td>
+                <td th:text="${u.usuRol}"></td>
+
+                <td>
+                    <a th:href="@{'/editarUsuario/' + ${u.id_Usuario}}" class="edit">Editar</a>
+                    <a th:href="@{'/eliminarUsuario/' + ${u.id_Usuario}}" class="delete">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    </section>
+
+
+</main>
+<footer>
+    <p>© 2026 MULTIPRO PERU S.A.C. | Sistema Interno</p>
+</footer>
+
+</body>
+
+</html>
+<div id="modalEliminar" class="modal-overlay">
+
+    <div class="modal-contenido">
+
+        <div class="modal-icono">❌</div>
+
+        <p class="modal-texto">
+            El registro se elimino correctamente.
+        </p>
+
+        <button class="btn-azul" onclick="cerrarEliminar()">
+            Aceptar
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="/js/modals.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Usuario | MULTIPRO PERU S.A.C.</title>
+    <link rel="stylesheet" href="/css/stylesnuevousu.css">
+    <link rel="stylesheet" href="/css/modals.css"></link>
+</head>
+
+<body>
+
+
+<header class="topbar">
+    <h1>MULTIPRO PERU S.A.C.</h1>
+    <span>Registrar Usuario</span>
+</header>
+
+
+<main class="container">
+
+
+    <div class="header-section">
+        <h2><b>Nuevo Usuario</b></h2>
+    </div>
+
+
+    <section class="form-contenedor">
+        <h2>Registrar Usuario</h2>
+
+
+        <form action="/guardarUsuario" method="post" th:object="${usuario}">
+            <input type="text" th:field="*{id_Usuario}">
+            <input type="text" th:field="*{usuNombre}">
+            <input type="text" th:field="*{usuCorreo}">
+            <input type="password" th:field="*{usuContraseña}">
+
+            <select th:field="*{usuRol}">
+                <option value="Administrador">Administrador</option>
+            </select>
+
+
+            <div class="botones-form">
+
+                <button type="submit" class="btn" onclick="mostrarGuardar()">
+                    Guardar
+                </button>
+
+                <a href="/Usuario" class="btn-cancelar">Cancelar</a>
+
+            </div>
+
+        </form>
+    </section>
+
+
+</main>
+<div id="modalGuardar" class="modal-overlay" >
+
+    <div class="modal-contenido">
+
+        <div class="modal-icono">✔</div>
+
+        <p class="modal-texto">
+            Los cambios se guardaron correctamente.
+        </p>
+
+        <button class="btn-azul" onclick="cerrarGuardar()">
+            Aceptar
+        </button>
+
+    </div>
+
+</div>
+
+<script src="/js/modals.js"></script>
+
+
+<footer>
+    <p>© 2026 MULTIPRO PERU S.A.C. | Sistema Interno</p>
+</footer>
+
+
+</body>
+
+</html>

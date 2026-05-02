@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Interactivo | MULTIPRO PERU S.A.C.</title>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="/css/stylesmetrica.css">
+    <style>
+
+    </style>
+
+</head>
+
+<body>
+<header class="topbar">
+    <h1>MULTIPRO PERU S.A.C.</h1>
+    <span>Métricas</span>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="/Categoria">Lista de Categorías</a></li>
+        <li><a href="/Contacto">Contacto</a></li>
+        <li><a href="/Gestion">Lista de Productos</a></li>
+        <li><a href="/Main">Menú Principal</a></li>
+        <li><a href="/Publicidad">Publicidad</a></li>
+        <li><a href="/Usuario">Usuarios</a></li>
+        <li><a href="/GestionIngreso">Ingresos</a></li>
+        <li><a href="/Gestionsalidas">Salidas</a></li>
+    </ul>
+</nav>
+
+<main class="container">
+
+    <section class="card">
+        <h3>1. Ingresos Mensuales</h3>
+        <canvas id="ingresosChart"></canvas>
+    </section>
+
+    <section class="card">
+        <h3>2. Salidas Mensuales</h3>
+        <canvas id="salidasChart"></canvas>
+    </section>
+
+    <section class="card">
+        <h3>3. Stock Disponible</h3>
+        <canvas id="stockChart"></canvas>
+    </section>
+
+    <section class="card">
+        <h3>4. Usuarios Registrados</h3>
+        <canvas id="usuariosChart"></canvas>
+    </section>
+
+    <section class="card">
+        <h3>5. Productos por Proveedor</h3>
+        <canvas id="proveedoresChart"></canvas>
+    </section>
+
+    <!-- ENTRADA SALIDA STOCK -->
+    <section class="card">
+        <h3>6. Entrada, Salida y Stock</h3>
+        <canvas id="movimientosChart"></canvas>
+    </section>
+</main>
+<script src="/js/javascriptMetrica.js"></script>
+<footer>
+    <p>© MULTIPRO S.A.C.</p>
+</footer>
+
+</body>
+
+</html>

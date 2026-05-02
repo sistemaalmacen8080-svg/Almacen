@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Salidas de Almacen | MULTIPRO PERU S.A.C.</title>
+    <link rel="stylesheet" href="/css/stylesgestionsalidas.css">
+    <link rel="stylesheet" href="/css/modals.css">
+    </link>
+</head>
+
+<body>
+
+
+<header class="topbar">
+    <h1>MULTIPRO PERU S.A.C.</h1>
+    <span>Sistema de Inventario</span>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="/Categoria">Lista de Categorías</a></li>
+        <li><a href="/Contacto">Contacto</a></li>
+        <li><a href="/Gestion">Lista de Productos</a></li>
+        <li><a href="/Main">Menú Principal</a></li>
+        <li><a href="/Metrica">Métricas</a></li>
+        <li><a href="/Publicidad">Publicidad</a></li>
+        <li><a href="/Usuario">Usuarios</a></li>
+        <li><a href="/GestionIngreso">Ingreso</a></li>
+    </ul>
+</nav>
+
+
+<main class="container">
+
+
+    <div class="header-section">
+        <h2>Gestión de Salidas</h2>
+        <a href="/Salida" class="btn-agregar">+ Nueva Salida de Almacen</a>
+    </div>
+
+
+    <div class="tabla-contenedor">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Proveedor</th>
+                <th>Responsable</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Productos</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="s : ${salidas}">
+                <td th:text="${s.id_Salida}"></td>
+                <td th:text="${s.salProveedor}"></td>
+                <td th:text="${s.salResponsable}"></td>
+                <td th:text="${s.salFecha}"></td>
+                <td th:text="${s.salHora}"></td>
+
+                <td>
+                    <a th:href="@{'/verSalida/' + ${s.id_Salida}}" class="btn">Ver más</a>
+                    <a th:href="@{'/eliminarSalida/' + ${s.id_Salida}}"
+                       class="btn-eliminar"
+                       onclick="return confirm('¿Seguro que deseas eliminar este ingreso?')">
+                        X
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 MULTIPRO PERU S.A.C. | Sistema Interno</p>
+</footer>
+
+</body>
+
+</html>

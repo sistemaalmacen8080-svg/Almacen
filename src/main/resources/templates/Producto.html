@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Producto | MULTIPRO PERU S.A.C.</title>
+    <link rel="stylesheet" href="/css/stylesproducto.css">
+    <link rel="stylesheet" href="/css/modals.css">
+</head>
+
+<body>
+
+
+<header class="topbar">
+    <h1>MULTIPRO PERU S.A.C.</h1>
+    <span>Registrar Producto</span>
+</header>
+
+
+<main class="container">
+
+
+    <div class="header-section">
+        <h2>Nuevo Producto</h2>
+    </div>
+
+
+    <div class="form-contenedor">
+        <form action="/guardarProducto" method="post" th:object="${producto}">
+
+            <label>ID Producto:</label>
+            <input type="text" th:field="*{id_Producto}" required>
+
+            <label>Nombre del Producto:</label>
+            <input type="text" th:field="*{prodNombre}" required>
+
+            <label>Categoría</label>
+            <select th:field="*{prodCategoria}" required>
+
+                <option value="">Seleccione</option>
+
+                <option th:each="cat : ${categorias}"
+                        th:value="${cat.catNombre}"
+                        th:text="${cat.catNombre}">
+                </option>
+
+            </select>
+
+            <label>Operador:</label>
+            <select th:field="*{prodOperador}">
+                <option value="Movistar">Movistar</option>
+                <option value="Entel">Entel</option>
+            </select>
+
+            <div class="botones-form">
+                <button type="submit" class="btn" onclick="mostrarGuardar()">
+                Guardar
+                </button>
+                <a href="/Gestion" class="btn-cancelar">Cancelar</a>
+            </div>
+
+        </form>
+    </div>
+
+</main>
+
+
+<div id="modalGuardar" class="modal-overlay">
+
+    <div class="modal-contenido">
+
+        <div class="modal-icono">✔</div>
+
+        <p class="modal-texto">
+            Los cambios se guardaron correctamente.
+        </p>
+
+        <button class="btn-azul" onclick="cerrarGuardar()">
+            Aceptar
+        </button>
+
+    </div>
+
+</div>
+
+<div id="modalEliminar" class="modal-overlay" >
+
+    <div class="modal-caja">
+
+        <div class="modal-icono">🗑</div>
+
+        <p class="modal-texto">
+            Se eliminó el registro.
+        </p>
+
+        <button class="btn-azul" onclick="cerrarEliminar()">
+            Aceptar
+        </button>
+
+    </div>
+
+</div>
+
+<script src="/js/modals.js"></script>
+
+
+<footer>
+    <p>© 2026 MULTIPRO PERU S.A.C. | Sistema Interno</p>
+</footer>
+
+
+</body>
+
+</html>
