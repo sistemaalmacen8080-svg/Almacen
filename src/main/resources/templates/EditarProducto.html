@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Producto</title>
+    <link rel="stylesheet" href="/css/styleseditarprod.css">
+</head>
+
+<body>
+
+<header class="topbar">
+    <h1>MULTIPRO PERU S.A.C.</h1>
+    <span>Editar Producto</span>
+</header>
+
+<main class="container">
+
+    <div class="form-contenedor">
+
+        <form th:action="@{/actualizarProducto}" method="post" th:object="${producto}">
+
+            <label>ID</label>
+            <input type="text" th:field="*{id_Producto}" readonly>
+
+            <label>Nombre</label>
+            <input type="text" th:field="*{prodNombre}" required>
+
+            <label>Categoría</label>
+            <select th:field="*{prodCategoria}" required>
+                <option th:each="c : ${categorias}"
+                        th:value="${c.catNombre}"
+                        th:text="${c.catNombre}">
+                </option>
+            </select>
+
+            <label>Operador</label>
+            <select th:field="*{prodOperador}">
+                <option value="Movistar">Movistar</option>
+                <option value="Entel">Entel</option>
+            </select>
+
+            <div class="botones-form">
+                <button type="submit" class="btn">Actualizar</button>
+                <a href="/Gestion" class="btn-cancelar">Cancelar</a>
+            </div>
+
+        </form>
+
+    </div>
+
+</main>
+
+</body>
+</html>

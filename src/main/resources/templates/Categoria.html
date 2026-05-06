@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Categorías | MULTIPRO PERU S.A.C.</title>
+    <link rel="stylesheet" href="/css/stylescategoria.css">
+    <link rel="stylesheet" href="/css/modals.css">
+</head>
+
+<body>
+
+
+<header class="topbar">
+    <h1>MULTIPRO PERU S.A.C.</h1>
+    <span>Gestión de Categorías</span>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="/Categoria"><u>Lista de Categorías</u></a></li>
+        <li><a href="/Contacto">Contacto</a></li>
+        <li><a href="/Gestion">Lista de Productos</a></li>
+        <li><a href="/Main">Menú Principal</a></li>
+        <li><a href="/Metrica">Métricas</a></li>
+        <li><a href="/Publicidad">Publicidad</a></li>
+        <li><a href="/Usuario">Usuarios</a></li>
+        <li><a href="/GestionIngreso">Ingresos</a></li>
+        <li><a href="/Gestionsalidas">Salidas</a></li>
+    </ul>
+</nav>
+
+<main class="container">
+
+    <div class="header-section">
+        <h2><b>Lista de Categorías</b></h2>
+        <a href="/NuevaCat" class="btn-agregar">+ Nueva Categoría</a>
+    </div>
+
+    <section class="tabla-contenedor">
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Categoría</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+
+
+            <tbody>
+            <tr th:each="categoria : ${categorias}">
+
+                <td th:text="${categoria.Id_Categoria}"></td>
+                <td th:text="${categoria.catNombre}"></td>
+
+                <td>
+
+                    <a th:href="@{/editarCategoria/{id}(id=${categoria.Id_Categoria})}">
+                        <button class="edit">Editar</button>
+                    </a>
+
+                    <a th:href="@{/eliminarCategoria/{id}(id=${categoria.Id_Categoria})}">
+                        <button class="delete" onclick="mostrarEliminar()">Eliminar</button>
+                    </a>
+
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+
+    </section>
+
+
+</main>
+
+<div id="modalEliminar" class="modal-overlay">
+
+    <div class="modal-contenido">
+
+        <div class="modal-icono">❌</div>
+
+        <p class="modal-texto">
+            El registro se elimino correctamente.
+        </p>
+
+        <button class="btn-azul" onclick="cerrarEliminar()">
+            Aceptar
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="/js/modals.js"></script>
+
+<footer>
+    <p>© 2026 MULTIPRO PERU S.A.C. | Sistema Interno</p>
+</footer>
+
+</body>
+</html>
+

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Productos | MULTIPRO PERU S.A.C.</title>
+    <link rel="stylesheet" href="/css/modals.css">
+    <link rel="stylesheet" href="/css/stylesgestion.css">
+</head>
+
+<body>
+
+<header class="topbar">
+    <h1>MULTIPRO PERU S.A.C.</h1>
+    <span>Sistema de Inventario</span>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="/Categoria">Lista de Categorías</a></li>
+        <li><a href="/Contacto">Contacto</a></li>
+        <li><a href="/Gestion"><u>Lista de Productos</u></a></li>
+        <li><a href="/Main">Menú Principal</a></li>
+        <li><a href="/Metrica">Métricas</a></li>
+        <li><a href="/Publicidad">Publicidad</a></li>
+        <li><a href="/Usuario">Usuarios</a></li>
+        <li><a href="/GestionIngreso">Ingresos</a></li>
+        <li><a href="/Gestionsalidas">Salidas</a></li>
+    </ul>
+</nav>
+
+<main class="container">
+
+    <div class="header-section">
+        <h2><b>Lista de Productos</b></h2>
+        <a href="/Producto" class="btn-agregar">+ Nuevo Producto</a>
+    </div>
+
+    <div class="tabla-contenedor">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Producto</th>
+                <th>Operador</th>
+                <th>Stock</th>
+                <th>Categoría</th>
+                <th>Acción</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="p : ${productos}">
+                <td th:text="${p.id_Producto}"></td>
+                <td th:text="${p.prodNombre}"></td>
+
+                <td th:text="${p.prodOperador}"></td>
+
+                <td th:text="${p.stock}"></td>
+
+                <td th:text="${p.prodCategoria}"></td>
+
+                <td>
+                    <a th:href="@{'/editarProducto/' + ${p.id_Producto}}" >
+                        <button class="btn-editar">Editar</button>
+                    </a>
+
+                    <a th:href="@{'/eliminarProducto/' + ${p.id_Producto}}" >
+                        <button class="btn-eliminar">Eliminar</button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 MULTIPRO PERU S.A.C. | Sistema Interno</p>
+</footer>
+
+</body>
+</html>

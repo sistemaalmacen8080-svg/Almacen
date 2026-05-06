@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Categoría</title>
+    <link rel="stylesheet" href="/css/styleseditarcat.css">
+</head>
+
+<body>
+
+<header class="topbar">
+    <h1>MULTIPRO PERU S.A.C.</h1>
+    <span>Editar Categoría</span>
+</header>
+
+<main class="container">
+
+    <div class="header-section">
+        <h2><b>Editar Categoría</b></h2>
+    </div>
+
+    <section class="form-contenedor">
+
+        <form th:action="@{/actualizarCategoria}" th:object="${categoria}" method="post">
+
+            <label>ID Categoría</label>
+            <input type="text" th:field="*{Id_Categoria}" readonly>
+
+            <label>Nombre Categoría</label>
+            <input type="text" th:field="*{catNombre}">
+
+            <div class="botones-form">
+                <button type="submit" class="btn">Actualizar</button>
+                <a href="/Categoria" class="btn-cancelar">Cancelar</a>
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 MULTIPRO PERU S.A.C. | Sistema Interno</p>
+</footer>
+
+</body>
+</html>

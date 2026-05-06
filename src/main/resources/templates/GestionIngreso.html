@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ingreso de Almacen | MULTIPRO PERU S.A.C.</title>
+    <link rel="stylesheet" href="/css/stylesgestioningreso.css">
+    <link rel="stylesheet" href="/css/modals.css">
+    </link>
+</head>
+
+<body>
+
+
+<header class="topbar">
+    <h1>MULTIPRO PERU S.A.C.</h1>
+    <span>Sistema de Inventario</span>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="/Categoria">Lista de Categorías</a></li>
+        <li><a href="/Contacto">Contacto</a></li>
+        <li><a href="/Gestion">Lista de Productos</a></li>
+        <li><a href="/Main">Menú Principal</a></li>
+        <li><a href="/Metrica">Métricas</a></li>
+        <li><a href="/Publicidad">Publicidad</a></li>
+        <li><a href="/Usuario">Usuarios</a></li>
+        <li><a href="/GestionIngreso"><u>Ingresos</u></a></li>
+        <li><a href="/Gestionsalidas">Salidas</a></li>
+    </ul>
+</nav>
+
+
+<main class="container">
+
+
+    <div class="header-section">
+        <h2>Gestión de Ingresos</h2>
+        <a href="/ingresos" class="btn-agregar">+ Nuevo Ingreso de Almacen</a>
+    </div>
+
+
+    <div class="tabla-contenedor">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Proveedor</th>
+                <th>Responsable</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Productos</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="i : ${ingresos}">
+                <td th:text="${i.id_Ingreso}"></td>
+                <td th:text="${i.ingProveedor}"></td>
+                <td th:text="${i.ingResponsable}"></td>
+                <td th:text="${i.ingFecha}"></td>
+                <td th:text="${i.ingHora}"></td>
+                <td>
+                    <a th:href="@{/verIngreso/{id}(id=${i.id_Ingreso})}" class="btn">Ver más</a>
+                    <a th:href="@{'/eliminarIngreso/' + ${i.id_Ingreso}}"
+                       class="btn-eliminar"
+                       onclick="return confirm('¿Seguro que deseas eliminar este ingreso?')">
+                        X
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 MULTIPRO PERU S.A.C. | Sistema Interno</p>
+</footer>
+
+</body>
+
+</html>

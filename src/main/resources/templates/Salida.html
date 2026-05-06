@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Salidas | MULTIPRO PERU S.A.C.</title>
+    <link rel="stylesheet" href="/css/stylessalidas.css">
+    <link rel="stylesheet" href="/css/modals.css"></link>
+</head>
+
+<body>
+
+<header class="topbar">
+    <h1>MULTIPRO PERU S.A.C.</h1>
+    <span>Orden de Salida de Productos</span>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="/Categoria">Lista de Categorías</a></li>
+        <li><a href="/Contacto">Contacto</a></li>
+        <li><a href="/Gestion">Lista de Productos</a></li>
+        <li><a href="/Main">Menú Principal</a></li>
+        <li><a href="/Metrica">Métricas</a></li>
+        <li><a href="/Publicidad">Publicidad</a></li>
+        <li><a href="/Usuario">Usuarios</a></li>
+        <li><a href="/GestionIngreso">Ingresos</a></li>
+        <li><a href="/Gestionsalidas">Salidas</a></li>
+    </ul>
+</nav>
+
+<main class="container">
+
+    <section class="card">
+        <h2>Datos de la Salida</h2>
+
+        <form th:action="@{/guardarSalida}" method="post" th:object="${salida}">
+            <label>ID Salida</label>
+            <input type="text" th:field="*{id_Salida}" required>
+            <label>Proveedor</label>
+            <select th:field="*{salProveedor}">
+                <option value="" disabled selected>Seleccione proveedor</option>
+                <option value="Movistar">Movistar</option>
+                <option value="Entel">Entel</option>
+            </select>
+            <label>Usuario Responsable</label>
+            <select th:field="*{salResponsable}">
+                <option value="">Seleccione usuario</option>
+
+                <option th:each="u : ${usuarios}"
+                        th:value="${u.id_Usuario}"
+                        th:text="${u.usuNombre}">
+                </option>
+            </select><br>
+            <label>Fecha</label>
+            <input type="date" th:field="*{salFecha}">
+
+            <label>Hora</label>
+            <input type="time" th:field="*{salHora}">
+
+            <section class="card">
+                <h2>Detalle de Productos</h2>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ID Producto</th>
+                        <th>Cantidad</th>
+                        <th>Acción</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="detalleProductos">
+                    <tr>
+                        <td class="indice">1</td>
+
+                        <td>
+                            <select th:field="*{detalles[0].idProducto}">
+                                <option value="" disabled selected>Seleccione producto</option>
+
+                                <option th:each="p : ${productos}"
+                                        th:value="${p.id_Producto}"
+                                        th:text="${p.id_Producto}">
+                                </option>
+                            </select>
+                        </td>
+
+                        <td>
+                            <input type="number" th:field="*{detalles[0].cantidad}">
+                        </td>
+
+                        <td>
+                            <button type="button" class="btn-eliminar" onclick="eliminarFila(this)">X</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <button type="button" class="btn-agregar" onclick="agregarFila()">+ Agregar Producto</button>
+
+            </section>
+            <button type="submit" class="btn-registrar" onclick="mostrarGuardar()">
+                Registrar Salida
+            </button>
+        </form>
+        <a href="/Gestionsalidas" class="btn-volver">⬅ Volver</a>
+    </section>
+
+</main>
+
+
+<div id="modalEliminar" class="modal-eliminar">
+    <div class="modal-eliminar2">
+        <p class="p-modal">Se eliminó el registro.</p>
+        <br>
+        <button onclick="cerrarEliminar()">Aceptar</button>
+    </div>
+</div>
+
+<div id="modalGuardar" class="modal-overlay">
+
+    <div class="modal-contenido">
+
+        <div class="modal-icono">✔</div>
+
+        <p class="modal-texto">
+            Los cambios se guardaron correctamente.
+        </p>
+
+        <button class="btn-azul" onclick="cerrarGuardar()">
+            Aceptar
+        </button>
+
+    </div>
+</div>
+
+<script src="/js/modals.js"></script>
+<footer>
+    <p>© 2026 MULTIPRO PERU S.A.C. | Sistema Interno</p>
+</footer>
+
+</body>
+
+</html>
