@@ -10,55 +10,75 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class IngresoServiceImpl implements IngresoService {
+public class IngresoServiceImpl
+        implements IngresoService {
 
-    private final IngresoRepository repository;
+    private final IngresoRepository ingresoRepository;
     private final ProductoService productoService;
 
-    public IngresoServiceImpl(IngresoRepository repository,
-                              ProductoService productoService) {
-        this.repository = repository;
-        this.productoService = productoService;
+    public IngresoServiceImpl(
+            IngresoRepository ingresoRepository,
+            ProductoService productoService) {
+
+        this.ingresoRepository =
+                ingresoRepository;
+
+        this.productoService =
+                productoService;
     }
 
     @Override
-    public List<Ingreso> listar() {
-        return repository.listar();
+    public List<Ingreso> listarIngresos() {
+
+        return ingresoRepository.listarIngresos();
     }
 
     @Override
-    public void guardar(Ingreso ingreso) {
+    public void guardarIngreso(Ingreso ingreso) {
 
         if (ingreso.getDetalles() == null) {
-            ingreso.setDetalles(new ArrayList<>());
+
+            ingreso.setDetalles(
+                    new ArrayList<>()
+            );
         }
 
         ingreso.getDetalles().forEach(d -> {
 
-            Producto p = productoService.buscarPorId(d.getIdProducto());
+            Producto producto =
+                    productoService.buscarProducto(
+                            d.getIdProducto()
+                    );
 
-            if (p != null) {
+            if (producto != null) {
 
-                // ✅ guardar nombre del producto
-                d.setNombreProducto(p.getProdNombre());
+                d.setNombreProducto(
+                        producto.getProdNombre()
+                );
 
-                // ✅ SUMAR stock real
-                p.setStock(p.getStock() + d.getCantidad());
+                producto.setStock(
+                        producto.getStock()
+                                + d.getCantidad()
+                );
 
-                productoService.guardar(p);
+                productoService.actualizarProducto(producto);
             }
         });
 
-        repository.guardar(ingreso);
+        ingresoRepository.guardarIngreso(
+                ingreso
+        );
     }
 
     @Override
-    public Ingreso buscar(String id) {
-        return repository.buscar(id);
+    public Ingreso buscarIngreso(String id) {
+
+        return ingresoRepository.buscarIngreso(id);
     }
 
     @Override
-    public void eliminar(String id) {
-        repository.eliminar(id);
+    public void eliminarIngreso(String id) {
+
+        ingresoRepository.eliminarIngreso(id);
     }
 }

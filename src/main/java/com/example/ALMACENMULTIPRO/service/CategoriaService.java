@@ -10,7 +10,7 @@ public interface CategoriaService {
 
     void guardarCategoria(Categoria categoria);
 
-    Categoria buscarPorId(String id);
+    Categoria buscarCategoria(String id);
 
     void actualizarCategoria(Categoria categoria);
 

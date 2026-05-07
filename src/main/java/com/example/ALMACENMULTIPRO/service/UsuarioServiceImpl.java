@@ -2,39 +2,57 @@ package com.example.ALMACENMULTIPRO.service;
 
 import com.example.ALMACENMULTIPRO.model.Usuario;
 import com.example.ALMACENMULTIPRO.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UsuarioServiceImpl implements UsuarioService {
+public class UsuarioServiceImpl
+        implements UsuarioService {
 
-    @Autowired
-    private UsuarioRepository repository;
+    private final UsuarioRepository usuarioRepository;
 
-    @Override
-    public void guardar(Usuario usuario) {
-        repository.guardar(usuario);
+    public UsuarioServiceImpl(
+            UsuarioRepository usuarioRepository) {
+
+        this.usuarioRepository =
+                usuarioRepository;
     }
 
     @Override
-    public List<Usuario> listar() {
-        return repository.listar();
+    public void guardarUsuario(
+            Usuario usuario) {
+
+        usuarioRepository.guardarUsuario(
+                usuario
+        );
     }
 
     @Override
-    public void eliminar(String id) {
-        repository.eliminar(id);
+    public List<Usuario> listarUsuarios() {
+
+        return usuarioRepository.listarUsuarios();
     }
 
     @Override
-    public Usuario buscar(String id) {
-        return repository.buscar(id);
+    public void eliminarUsuario(String id) {
+
+        usuarioRepository.eliminarUsuario(id);
     }
 
     @Override
-    public void actualizar(Usuario usuario) {
-        repository.actualizar(usuario);
+    public Usuario buscarUsuario(String id) {
+
+        return usuarioRepository.buscarUsuario(id);
+    }
+
+    @Override
+    public void actualizarUsuario(
+            Usuario usuario) {
+
+        usuarioRepository.actualizarUsuario(
+                usuario
+        );
     }
 }

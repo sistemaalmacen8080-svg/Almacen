@@ -1,9 +1,9 @@
 package com.example.ALMACENMULTIPRO.controller;
 
 import com.example.ALMACENMULTIPRO.model.Producto;
-import com.example.ALMACENMULTIPRO.service.ProductoService;
 import com.example.ALMACENMULTIPRO.service.CategoriaService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.ALMACENMULTIPRO.service.ProductoService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,59 +11,78 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class ProductoController {
 
-    @Autowired
-    private ProductoService service;
+    private final ProductoService productoService;
+    private final CategoriaService categoriaService;
 
-    @Autowired
-    private CategoriaService categoriaService;
+    public ProductoController(
+            ProductoService productoService,
+            CategoriaService categoriaService) {
+
+        this.productoService = productoService;
+        this.categoriaService = categoriaService;
+    }
+
+    @GetMapping("/Gestion")
+    public String listarProductos(Model model) {
+
+        model.addAttribute(
+                "productos",
+                productoService.listarProductos()
+        );
+
+        return "Gestion";
+    }
 
     @GetMapping("/Producto")
-    public String formularioProducto(Model model) {
+    public String mostrarFormularioProducto(
+            Model model) {
 
-        model.addAttribute("producto", new Producto());
-        model.addAttribute("categorias", categoriaService.listarCategorias());
+        model.addAttribute(
+                "producto",
+                new Producto()
+        );
+
+        model.addAttribute(
+                "categorias",
+                categoriaService.listarCategorias()
+        );
 
         return "Producto";
     }
 
     @PostMapping("/guardarProducto")
-    public String guardarProducto(@ModelAttribute Producto producto) {
+    public String guardarProducto(
+            @ModelAttribute Producto producto) {
 
-        if (producto.getStock() == 0) {
-            producto.setStock(0);
-        }
-
-        service.guardar(producto);
+        productoService.guardarProducto(producto);
 
         return "redirect:/Gestion";
     }
 
-    @GetMapping("/Gestion")
-    public String listarProductos(Model model) {
-        model.addAttribute("productos", service.listar());
-        return "Gestion";
-    }
-
     @GetMapping("/editarProducto/{id}")
-    public String editar(@PathVariable String id, Model model) {
+    public String editarProducto(
+            @PathVariable String id,
+            Model model) {
 
-        model.addAttribute("producto", service.buscarPorId(id));
-        model.addAttribute("categorias", categoriaService.listarCategorias());
+        model.addAttribute(
+                "producto",
+                productoService.buscarProducto(id)
+        );
+
+        model.addAttribute(
+                "categorias",
+                categoriaService.listarCategorias()
+        );
 
         return "EditarProducto";
     }
 
-    @PostMapping("/actualizarProducto")
-    public String actualizar(@ModelAttribute Producto producto) {
-
-        service.actualizar(producto);
-
-        return "redirect:/Gestion";
-    }
-
     @GetMapping("/eliminarProducto/{id}")
-    public String eliminar(@PathVariable String id) {
-        service.eliminar(id);
+    public String eliminarProducto(
+            @PathVariable String id) {
+
+        productoService.eliminarProducto(id);
+
         return "redirect:/Gestion";
     }
 }

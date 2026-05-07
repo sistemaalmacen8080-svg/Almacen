@@ -14,21 +14,51 @@ public class Salida {
 
     private List<DetalleSalida> detalles;
 
-    public String getId_Salida() { return id_Salida; }
-    public void setId_Salida(String id_Salida) { this.id_Salida = id_Salida; }
+    public String getId_Salida() {
+        return id_Salida;
+    }
 
-    public String getSalProveedor() { return salProveedor; }
-    public void setSalProveedor(String salProveedor) { this.salProveedor = salProveedor; }
+    public void setId_Salida(String id_Salida) {
+        this.id_Salida = id_Salida;
+    }
 
-    public String getSalResponsable() { return salResponsable; }
-    public void setSalResponsable(String salResponsable) { this.salResponsable = salResponsable; }
+    public String getSalProveedor() {
+        return salProveedor;
+    }
 
-    public LocalDate getSalFecha() { return salFecha; }
-    public void setSalFecha(LocalDate salFecha) { this.salFecha = salFecha; }
+    public void setSalProveedor(String salProveedor) {
+        this.salProveedor = salProveedor;
+    }
 
-    public LocalTime getSalHora() { return salHora; }
-    public void setSalHora(LocalTime salHora) { this.salHora = salHora; }
+    public String getSalResponsable() {
+        return salResponsable;
+    }
 
-    public List<DetalleSalida> getDetalles() { return detalles; }
-    public void setDetalles(List<DetalleSalida> detalles) { this.detalles = detalles; }
+    public void setSalResponsable(String salResponsable) {
+        this.salResponsable = salResponsable;
+    }
+
+    public LocalDate getSalFecha() {
+        return salFecha;
+    }
+
+    public void setSalFecha(LocalDate salFecha) {
+        this.salFecha = salFecha;
+    }
+
+    public LocalTime getSalHora() {
+        return salHora;
+    }
+
+    public void setSalHora(LocalTime salHora) {
+        this.salHora = salHora;
+    }
+
+    public List<DetalleSalida> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetalleSalida> detalles) {
+        this.detalles = detalles;
+    }
 }

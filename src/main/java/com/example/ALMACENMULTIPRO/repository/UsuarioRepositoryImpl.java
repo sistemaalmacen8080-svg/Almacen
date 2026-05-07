@@ -7,62 +7,146 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UsuarioRepositoryImpl implements UsuarioRepository {
+public class UsuarioRepositoryImpl
+        implements UsuarioRepository {
 
-    private final List<Usuario> lista = new ArrayList<>();
+    private final List<Usuario> listaUsuarios =
+            new ArrayList<>();
 
-    // 🔥 USUARIO ADMIN POR DEFECTO
     public UsuarioRepositoryImpl() {
 
         Usuario admin = new Usuario();
-        admin.setId_Usuario("U001");
-        admin.setUsuNombre("Administrador");
-        admin.setUsuCorreo("admin@multipro.com");
+
+        admin.setId_Usuario("U0001");
+        admin.setUsuNombre(
+                "Administrador del Almacén"
+        );
+
+        admin.setUsuCorreo(
+                "sistemaalmacen8080@gmail.com"
+        );
+
         admin.setUsuContraseña("1234");
-        admin.setUsuRol("ADMIN");
 
-        lista.add(admin);
+        admin.setUsuRol("Administrador");
+
+        listaUsuarios.add(admin);
     }
 
     @Override
-    public List<Usuario> listar() {
-        return lista;
+    public void guardarUsuario(Usuario usuario) {
+
+        // NUEVO USUARIO
+        if (usuario.getId_Usuario() == null ||
+                usuario.getId_Usuario().isEmpty()) {
+
+            usuario.setId_Usuario(
+                    generarIdUsuario()
+            );
+
+            listaUsuarios.add(usuario);
+
+            return;
+        }
+
+        // ACTUALIZAR
+        Usuario existente =
+                buscarUsuario(
+                        usuario.getId_Usuario()
+                );
+
+        if (existente != null) {
+
+            existente.setUsuNombre(
+                    usuario.getUsuNombre()
+            );
+
+            existente.setUsuCorreo(
+                    usuario.getUsuCorreo()
+            );
+
+            existente.setUsuContraseña(
+                    usuario.getUsuContraseña()
+            );
+
+            existente.setUsuRol(
+                    usuario.getUsuRol()
+            );
+
+        } else {
+
+            listaUsuarios.add(usuario);
+        }
     }
 
     @Override
-    public void guardar(Usuario usuario) {
-        lista.add(usuario);
+    public List<Usuario> listarUsuarios() {
+
+        return listaUsuarios;
     }
 
     @Override
-    public Usuario buscar(String id) {
-        return lista.stream()
-                .filter(u -> u.getId_Usuario().equals(id))
+    public Usuario buscarUsuario(String id) {
+
+        return listaUsuarios.stream()
+                .filter(
+                        u -> u.getId_Usuario().equals(id)
+                )
                 .findFirst()
                 .orElse(null);
     }
 
     @Override
-    public void eliminar(String id) {
+    public void eliminarUsuario(String id) {
 
-        // ❌ PROTEGER ADMIN
-        if (id.equals("U001")) {
+        // PROTEGER ADMIN
+        if (id.equals("U0001")) {
             return;
         }
 
-        lista.removeIf(u -> u.getId_Usuario().equals(id));
+        listaUsuarios.removeIf(
+                u -> u.getId_Usuario().equals(id)
+        );
     }
 
     @Override
-    public void actualizar(Usuario usuario) {
+    public void actualizarUsuario(
+            Usuario usuario) {
 
-        for (int i = 0; i < lista.size(); i++) {
+        Usuario existente =
+                buscarUsuario(
+                        usuario.getId_Usuario()
+                );
 
-            if (lista.get(i).getId_Usuario().equals(usuario.getId_Usuario())) {
+        if (existente != null) {
 
-                lista.set(i, usuario);
-                break;
-            }
+            existente.setUsuNombre(
+                    usuario.getUsuNombre()
+            );
+
+            existente.setUsuCorreo(
+                    usuario.getUsuCorreo()
+            );
+
+            existente.setUsuContraseña(
+                    usuario.getUsuContraseña()
+            );
+
+            existente.setUsuRol(
+                    usuario.getUsuRol()
+            );
         }
+    }
+
+    @Override
+    public String generarIdUsuario() {
+
+        int siguiente =
+                listaUsuarios.size() + 1;
+
+        return String.format(
+                "U%04d",
+                siguiente
+        );
     }
 }

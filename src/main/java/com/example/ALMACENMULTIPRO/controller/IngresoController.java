@@ -12,49 +12,82 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class IngresoController {
 
-    private final IngresoService service;
-    private final UsuarioService usuarioService;
+    private final IngresoService ingresoService;
     private final ProductoService productoService;
+    private final UsuarioService usuarioService;
 
     public IngresoController(
-            IngresoService service,
-            UsuarioService usuarioService,
-            ProductoService productoService) {
+            IngresoService ingresoService,
+            ProductoService productoService,
+            UsuarioService usuarioService) {
 
-        this.service = service;
-        this.usuarioService = usuarioService;
+        this.ingresoService = ingresoService;
         this.productoService = productoService;
+        this.usuarioService = usuarioService;
     }
 
     @GetMapping("/GestionIngreso")
-    public String listar(Model model) {
-        model.addAttribute("ingresos", service.listar());
+    public String listarIngresos(Model model) {
+
+        model.addAttribute(
+                "ingresos",
+                ingresoService.listarIngresos()
+        );
+
         return "GestionIngreso";
     }
 
     @GetMapping("/ingresos")
-    public String nuevo(Model model) {
-        model.addAttribute("ingreso", new Ingreso());
-        model.addAttribute("usuarios", usuarioService.listar());
-        model.addAttribute("productos", productoService.listar());
+    public String nuevoIngreso(Model model) {
+
+        model.addAttribute(
+                "ingreso",
+                new Ingreso()
+        );
+
+        model.addAttribute(
+                "productos",
+                productoService.listarProductos()
+        );
+
+        model.addAttribute(
+                "usuarios",
+                usuarioService.listarUsuarios()
+        );
+
         return "ingresos";
     }
 
     @PostMapping("/guardarIngreso")
-    public String guardar(@ModelAttribute Ingreso ingreso) {
-        service.guardar(ingreso);
+    public String guardarIngreso(
+            @ModelAttribute Ingreso ingreso) {
+
+        ingresoService.guardarIngreso(
+                ingreso
+        );
+
         return "redirect:/GestionIngreso";
     }
 
-    @GetMapping("/verIngreso/{id}")
-    public String ver(@PathVariable String id, Model model) {
-        model.addAttribute("ingreso", service.buscar(id));
+    @GetMapping("/vermasIngreso/{id}")
+    public String verMasIngreso(
+            @PathVariable String id,
+            Model model) {
+
+        model.addAttribute(
+                "ingreso",
+                ingresoService.buscarIngreso(id)
+        );
+
         return "VermasIngreso";
     }
 
     @GetMapping("/eliminarIngreso/{id}")
-    public String eliminar(@PathVariable String id) {
-        service.eliminar(id);
+    public String eliminarIngreso(
+            @PathVariable String id) {
+
+        ingresoService.eliminarIngreso(id);
+
         return "redirect:/GestionIngreso";
     }
 }

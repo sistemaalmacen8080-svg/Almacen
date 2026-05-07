@@ -10,62 +10,84 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class SalidaServiceImpl implements SalidaService {
+public class SalidaServiceImpl
+        implements SalidaService {
 
-    private final SalidaRepository repository;
+    private final SalidaRepository salidaRepository;
     private final ProductoService productoService;
 
-    public SalidaServiceImpl(SalidaRepository repository,
-                             ProductoService productoService) {
-        this.repository = repository;
-        this.productoService = productoService;
+    public SalidaServiceImpl(
+            SalidaRepository salidaRepository,
+            ProductoService productoService) {
+
+        this.salidaRepository =
+                salidaRepository;
+
+        this.productoService =
+                productoService;
     }
 
     @Override
-    public List<Salida> listar() {
-        return repository.listar();
+    public List<Salida> listarSalidas() {
+
+        return salidaRepository.listarSalidas();
     }
 
     @Override
-    public void guardar(Salida salida) {
+    public void guardarSalida(Salida salida) {
 
         if (salida.getDetalles() == null) {
-            salida.setDetalles(new ArrayList<>());
+
+            salida.setDetalles(
+                    new ArrayList<>()
+            );
         }
 
         salida.getDetalles().forEach(d -> {
 
-            Producto p = productoService.buscarPorId(d.getIdProducto());
+            Producto producto =
+                    productoService.buscarProducto(
+                            d.getIdProducto()
+                    );
 
-            if (p != null) {
+            if (producto != null) {
 
-                // ✅ guardar nombre
-                d.setNombreProducto(p.getProdNombre());
+                d.setNombreProducto(
+                        producto.getProdNombre()
+                );
 
-                // 🚨 VALIDAR STOCK
-                if (p.getStock() < d.getCantidad()) {
+                if (producto.getStock()
+                        < d.getCantidad()) {
+
                     throw new RuntimeException(
-                            "Stock insuficiente para el producto: " + p.getProdNombre()
+                            "Stock insuficiente para el producto: "
+                                    + producto.getProdNombre()
                     );
                 }
 
-                // 🔥 RESTAR STOCK
-                p.setStock(p.getStock() - d.getCantidad());
+                producto.setStock(
+                        producto.getStock()
+                                - d.getCantidad()
+                );
 
-                productoService.guardar(p);
+                productoService.actualizarProducto(producto);
             }
         });
 
-        repository.guardar(salida);
+        salidaRepository.guardarSalida(
+                salida
+        );
     }
 
     @Override
-    public Salida buscar(String id) {
-        return repository.buscar(id);
+    public Salida buscarSalida(String id) {
+
+        return salidaRepository.buscarSalida(id);
     }
 
     @Override
-    public void eliminar(String id) {
-        repository.eliminar(id);
+    public void eliminarSalida(String id) {
+
+        salidaRepository.eliminarSalida(id);
     }
 }

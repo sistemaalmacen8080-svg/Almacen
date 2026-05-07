@@ -4,12 +4,11 @@ public class Producto {
 
     private String id_Producto;
     private String prodNombre;
-    private String prodCategoria; // 🔥 CAMBIADO
-    private String prodOperador;  // 🔥 CAMBIADO
+    private String prodCategoria;
+    private String prodOperador;
     private int stock;
 
     public Producto() {
-        this.stock = 0; // 🔥 stock inicia en 0
     }
 
     public String getId_Producto() {

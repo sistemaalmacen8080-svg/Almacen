@@ -9,44 +9,77 @@ import java.util.List;
 @Repository
 public class ProductoRepositoryImpl implements ProductoRepository {
 
-    private final List<Producto> lista = new ArrayList<>();
+    private final List<Producto> listaProductos = new ArrayList<>();
 
     @Override
-    public void guardar(Producto producto) {
-        lista.add(producto);
+    public void guardarProducto(Producto producto) {
+
+        if (producto.getId_Producto() == null ||
+                producto.getId_Producto().isEmpty()) {
+
+            producto.setId_Producto(generarIdProducto());
+        }
+
+        listaProductos.add(producto);
     }
 
     @Override
-    public List<Producto> listar() {
-        return lista;
+    public List<Producto> listarProductos() {
+
+        return listaProductos;
     }
 
     @Override
-    public void eliminar(String id) {
-        lista.removeIf(p -> p.getId_Producto().equals(id));
-    }
+    public Producto buscarProducto(String id) {
 
-    @Override
-    public Producto buscarPorId(String id) {
-        return lista.stream()
-                .filter(p -> p.getId_Producto().equals(id))
+        return listaProductos.stream()
+                .filter(
+                        p -> p.getId_Producto().equals(id)
+                )
                 .findFirst()
                 .orElse(null);
     }
 
     @Override
-    public void actualizar(Producto producto) {
+    public void eliminarProducto(String id) {
 
-        for (int i = 0; i < lista.size(); i++) {
+        listaProductos.removeIf(
+                p -> p.getId_Producto().equals(id)
+        );
+    }
 
-            if (lista.get(i).getId_Producto().equals(producto.getId_Producto())) {
+    @Override
+    public void actualizarProducto(Producto producto) {
 
-                // 🔥 mantener stock
-                producto.setStock(lista.get(i).getStock());
+        Producto existente =
+                buscarProducto(producto.getId_Producto());
 
-                lista.set(i, producto);
-                break;
-            }
+        if (existente != null) {
+
+            existente.setProdNombre(
+                    producto.getProdNombre()
+            );
+
+            existente.setProdCategoria(
+                    producto.getProdCategoria()
+            );
+
+            existente.setProdOperador(
+                    producto.getProdOperador()
+            );
+
+            existente.setStock(
+                    producto.getStock()
+            );
         }
+    }
+
+    @Override
+    public String generarIdProducto() {
+
+        int siguiente =
+                listaProductos.size() + 1;
+
+        return String.format("P%04d", siguiente);
     }
 }

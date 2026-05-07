@@ -1,15 +1,16 @@
 package com.example.ALMACENMULTIPRO.service;
 
 import com.example.ALMACENMULTIPRO.model.Ingreso;
+
 import java.util.List;
 
 public interface IngresoService {
 
-    List<Ingreso> listar();
+    List<Ingreso> listarIngresos();
 
-    void guardar(Ingreso ingreso);
+    void guardarIngreso(Ingreso ingreso);
 
-    Ingreso buscar(String id);
+    Ingreso buscarIngreso(String id);
 
-    void eliminar(String id);
+    void eliminarIngreso(String id);
 }

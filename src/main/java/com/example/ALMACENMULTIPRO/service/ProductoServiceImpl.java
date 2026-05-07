@@ -2,7 +2,7 @@ package com.example.ALMACENMULTIPRO.service;
 
 import com.example.ALMACENMULTIPRO.model.Producto;
 import com.example.ALMACENMULTIPRO.repository.ProductoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,31 +10,41 @@ import java.util.List;
 @Service
 public class ProductoServiceImpl implements ProductoService {
 
-    @Autowired
-    private ProductoRepository repository;
+    private final ProductoRepository productoRepository;
 
-    @Override
-    public void guardar(Producto producto) {
-        repository.guardar(producto);
+    public ProductoServiceImpl(
+            ProductoRepository productoRepository) {
+
+        this.productoRepository = productoRepository;
     }
 
     @Override
-    public List<Producto> listar() {
-        return repository.listar();
+    public void guardarProducto(Producto producto) {
+
+        productoRepository.guardarProducto(producto);
     }
 
     @Override
-    public void eliminar(String id) {
-        repository.eliminar(id);
+    public List<Producto> listarProductos() {
+
+        return productoRepository.listarProductos();
     }
 
     @Override
-    public Producto buscarPorId(String id) {
-        return repository.buscarPorId(id);
+    public void eliminarProducto(String id) {
+
+        productoRepository.eliminarProducto(id);
     }
 
     @Override
-    public void actualizar(Producto producto) {
-        repository.actualizar(producto);
+    public Producto buscarProducto(String id) {
+
+        return productoRepository.buscarProducto(id);
+    }
+
+    @Override
+    public void actualizarProducto(Producto producto) {
+
+        productoRepository.actualizarProducto(producto);
     }
 }

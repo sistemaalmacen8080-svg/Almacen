@@ -6,13 +6,15 @@ import java.util.List;
 
 public interface CategoriaRepository {
 
-    List<Categoria> listarCategorias();
-
     void guardarCategoria(Categoria categoria);
 
-    Categoria buscarPorId(String id);
+    List<Categoria> listarCategorias();
+
+    Categoria buscarCategoria(String id);
+
+    void eliminarCategoria(String id);
 
     void actualizarCategoria(Categoria categoria);
 
-    void eliminarCategoria(String id);
+    String generarIdCategoria();
 }

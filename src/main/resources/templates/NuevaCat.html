@@ -26,7 +26,10 @@
         <form th:action="@{/guardarCategoria}" th:object="${categoria}" method="post">
 
             <label>ID de Categoría</label>
-            <input type="text" th:field="*{Id_Categoria}">
+            <input type="text"
+                   th:field="*{id_Categoria}"
+                   readonly
+                   placeholder="Se genera automáticamente">
 
             <label>Categoría</label>
             <input type="text" th:field="*{catNombre}">

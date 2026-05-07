@@ -2,7 +2,7 @@ package com.example.ALMACENMULTIPRO.controller;
 
 import com.example.ALMACENMULTIPRO.model.Usuario;
 import com.example.ALMACENMULTIPRO.service.UsuarioService;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,48 +10,77 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class UsuarioController {
 
-    @Autowired
-    private UsuarioService service;
+    private final UsuarioService usuarioService;
 
-    // LISTAR
+    public UsuarioController(
+            UsuarioService usuarioService) {
+
+        this.usuarioService = usuarioService;
+    }
+
     @GetMapping("/Usuario")
-    public String listar(Model model) {
-        model.addAttribute("usuarios", service.listar());
+    public String listarUsuarios(Model model) {
+
+        model.addAttribute(
+                "usuarios",
+                usuarioService.listarUsuarios()
+        );
+
         return "Usuario";
     }
 
-    // FORM NUEVO
     @GetMapping("/NuevoUsu")
-    public String nuevo(Model model) {
-        model.addAttribute("usuario", new Usuario());
-        return "NuevoUsuario";
+    public String nuevoUsuario(Model model) {
+
+        model.addAttribute(
+                "usuario",
+                new Usuario()
+        );
+
+        return "NuevoUsu";
     }
 
-    // GUARDAR
     @PostMapping("/guardarUsuario")
-    public String guardar(@ModelAttribute Usuario usuario) {
-        service.guardar(usuario);
+    public String guardarUsuario(
+            @ModelAttribute Usuario usuario) {
+
+        usuarioService.guardarUsuario(
+                usuario
+        );
+
         return "redirect:/Usuario";
     }
 
-    // EDITAR (CARGA FORM)
     @GetMapping("/editarUsuario/{id}")
-    public String editar(@PathVariable String id, Model model) {
-        model.addAttribute("usuario", service.buscar(id));
+    public String editarUsuario(
+            @PathVariable String id,
+            Model model) {
+
+        model.addAttribute(
+                "usuario",
+                usuarioService.buscarUsuario(id)
+        );
+
         return "EditarUsuario";
     }
 
-    // ACTUALIZAR
     @PostMapping("/actualizarUsuario")
-    public String actualizar(@ModelAttribute Usuario usuario) {
-        service.actualizar(usuario);
+    public String actualizarUsuario(
+            @ModelAttribute Usuario usuario) {
+
+        usuarioService.actualizarUsuario(
+                usuario
+        );
+
         return "redirect:/Usuario";
     }
 
-    // ELIMINAR
     @GetMapping("/eliminarUsuario/{id}")
-    public String eliminar(@PathVariable String id) {
-        service.eliminar(id);
+    public String eliminarUsuario(
+            @PathVariable String id) {
+
+        usuarioService.eliminarUsuario(id);
+
         return "redirect:/Usuario";
     }
 }

@@ -36,7 +36,10 @@
 
         <form action="/guardarIngreso" method="post" th:object="${ingreso}">
             <label>ID Ingreso</label>
-            <input type="text" th:field="*{id_Ingreso}" required>
+            <input type="text"
+                   th:field="*{id_Ingreso}"
+                   readonly
+                   placeholder="Se genera automáticamente">
             <label>Proveedor</label>
             <select th:field="*{ingProveedor}">
                 <option value="" disabled selected>Seleccione proveedor</option>
@@ -91,7 +94,7 @@
                         </td>
 
                         <td>
-                            <button type="button" class="btn-eliminar" onclick="eliminarFila(this)">X</button>
+                            <button type="button" class="btn-eliminar" onclick="eliminarFila(this)" disabled>X</button>
                         </td>
                     </tr>
                     </tbody>

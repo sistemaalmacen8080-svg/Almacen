@@ -62,7 +62,7 @@
                 <td th:text="${i.ingFecha}"></td>
                 <td th:text="${i.ingHora}"></td>
                 <td>
-                    <a th:href="@{/verIngreso/{id}(id=${i.id_Ingreso})}" class="btn">Ver más</a>
+                    <a th:href="@{/vermasIngreso/{id}(id=${i.id_Ingreso})}" class="btn">Ver más</a>
                     <a th:href="@{'/eliminarIngreso/' + ${i.id_Ingreso}}"
                        class="btn-eliminar"
                        onclick="return confirm('¿Seguro que deseas eliminar este ingreso?')">

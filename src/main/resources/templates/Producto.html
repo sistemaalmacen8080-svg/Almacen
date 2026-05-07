@@ -27,7 +27,10 @@
         <form id="formProducto" action="/guardarProducto" method="post" th:object="${producto}">
 
             <label>ID Producto:</label>
-            <input type="text" th:field="*{id_Producto}" required>
+            <input type="text"
+                   th:field="*{id_Producto}"
+                   readonly
+                   placeholder="Se genera automáticamente">
 
             <label>Nombre del Producto:</label>
             <input type="text" th:field="*{prodNombre}" required>

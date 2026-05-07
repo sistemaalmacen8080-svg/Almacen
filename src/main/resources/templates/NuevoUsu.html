@@ -30,7 +30,11 @@
 
 
         <form th:action="@{/guardarUsuario}" method="post" th:object="${usuario}">
-            <input type="text" th:field="*{id_Usuario}">
+            <label>ID Usuario</label>
+            <input type="text"
+                   th:field="*{id_Usuario}"
+                   readonly
+                   placeholder="Se genera automáticamente">
             <input type="text" th:field="*{usuNombre}">
             <input type="text" th:field="*{usuCorreo}">
             <input type="password" th:field="*{usuContraseña}">

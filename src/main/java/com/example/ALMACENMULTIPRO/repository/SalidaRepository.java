@@ -1,15 +1,18 @@
 package com.example.ALMACENMULTIPRO.repository;
 
 import com.example.ALMACENMULTIPRO.model.Salida;
+
 import java.util.List;
 
 public interface SalidaRepository {
 
-    List<Salida> listar();
+    void guardarSalida(Salida salida);
 
-    void guardar(Salida salida);
+    List<Salida> listarSalidas();
 
-    Salida buscar(String id);
+    Salida buscarSalida(String id);
 
-    void eliminar(String id);
+    void eliminarSalida(String id);
+
+    String generarIdSalida();
 }

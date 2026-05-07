@@ -15,55 +15,66 @@ function cerrarEliminar() {
 }
 
 
-///... 
+///...
 function agregarFila() {
+
     const tbody = document.getElementById("detalleProductos");
 
     const filas = tbody.getElementsByTagName("tr");
     const index = filas.length;
 
-    const filaBase = filas[0]; // clonamos la primera fila
-    const nuevaFila = filaBase.cloneNode(true);
+    const nuevaFila = document.createElement("tr");
 
-    // actualizar índice visual
-    nuevaFila.querySelector(".indice").textContent = index + 1;
+    nuevaFila.innerHTML = `
+        <td class="indice">${index + 1}</td>
 
-    // actualizar select
-    const select = nuevaFila.querySelector("select");
-    select.name = `detalles[${index}].idProducto`;
-    select.value = "";
+        <td>
+            <select name="detalles[${index}].idProducto" required>
+                ${filas[0].querySelector("select").innerHTML}
+            </select>
+        </td>
 
-    // actualizar input cantidad
-    const cantidad = nuevaFila.querySelector("input");
-    cantidad.name = `detalles[${index}].cantidad`;
-    cantidad.value = "";
+        <td>
+            <input type="number"
+                   name="detalles[${index}].cantidad"
+                   required>
+        </td>
+
+        <td>
+            <button type="button"
+                    class="btn-eliminar"
+                    onclick="eliminarFila(this)">
+                X
+            </button>
+        </td>
+    `;
 
     tbody.appendChild(nuevaFila);
 }
-
 function eliminarFila(btn) {
-    const fila = btn.closest("tr");
+
     const tbody = document.getElementById("detalleProductos");
-
-    fila.remove();
-
-    // reindexar todo
     const filas = tbody.getElementsByTagName("tr");
 
-    for (let i = 0; i < filas.length; i++) {
-        filas[i].querySelector(".indice").textContent = i + 1;
+    // no eliminar primera fila
+    if (filas.length <= 1) {
+        return;
+    }
 
-        const select = filas[i].querySelector("select");
-        const input = filas[i].querySelector("input");
+    const fila = btn.closest("tr");
+    fila.remove();
+
+    // reindexar
+    const nuevasFilas = tbody.getElementsByTagName("tr");
+
+    for (let i = 0; i < nuevasFilas.length; i++) {
+
+        nuevasFilas[i].querySelector(".indice").textContent = i + 1;
+
+        const select = nuevasFilas[i].querySelector("select");
+        const input = nuevasFilas[i].querySelector("input");
 
         select.name = `detalles[${i}].idProducto`;
         input.name = `detalles[${i}].cantidad`;
     }
-}
-
-function actualizarNumeracion() {
-     let filas = document.querySelectorAll("#detalleProductos tr");
-     filas.forEach((fila, index) => {
-    fila.cells[0].innerText = index + 1;
-    });
 }

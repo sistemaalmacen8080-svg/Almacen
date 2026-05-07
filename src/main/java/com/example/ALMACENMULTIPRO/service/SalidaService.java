@@ -1,15 +1,16 @@
 package com.example.ALMACENMULTIPRO.service;
 
 import com.example.ALMACENMULTIPRO.model.Salida;
+
 import java.util.List;
 
 public interface SalidaService {
 
-    List<Salida> listar();
+    List<Salida> listarSalidas();
 
-    void guardar(Salida salida);
+    void guardarSalida(Salida salida);
 
-    Salida buscar(String id);
+    Salida buscarSalida(String id);
 
-    void eliminar(String id);
+    void eliminarSalida(String id);
 }

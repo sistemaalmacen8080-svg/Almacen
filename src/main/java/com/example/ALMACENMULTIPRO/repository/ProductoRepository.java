@@ -1,17 +1,20 @@
 package com.example.ALMACENMULTIPRO.repository;
 
 import com.example.ALMACENMULTIPRO.model.Producto;
+
 import java.util.List;
 
 public interface ProductoRepository {
 
-    void guardar(Producto producto);
+    void guardarProducto(Producto producto);
 
-    List<Producto> listar();
+    List<Producto> listarProductos();
 
-    void eliminar(String id);
+    Producto buscarProducto(String id);
 
-    Producto buscarPorId(String id);
+    void eliminarProducto(String id);
 
-    void actualizar(Producto producto); // 🔥 NUEVO
+    void actualizarProducto(Producto producto);
+
+    String generarIdProducto();
 }

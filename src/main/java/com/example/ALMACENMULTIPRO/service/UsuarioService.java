@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface UsuarioService {
 
-    void guardar(Usuario usuario);
+    void guardarUsuario(Usuario usuario);
 
-    List<Usuario> listar();
+    List<Usuario> listarUsuarios();
 
-    void eliminar(String id);
+    void eliminarUsuario(String id);
 
-    Usuario buscar(String id);
+    Usuario buscarUsuario(String id);
 
-    void actualizar(Usuario usuario);
+    void actualizarUsuario(Usuario usuario);
 }

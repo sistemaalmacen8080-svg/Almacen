@@ -1,54 +1,100 @@
 package com.example.ALMACENMULTIPRO.repository;
 
 import com.example.ALMACENMULTIPRO.model.Categoria;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class CategoriaRepositoryImpl implements CategoriaRepository {
+public class CategoriaRepositoryImpl
+        implements CategoriaRepository {
 
-    private static final List<Categoria> categorias = new ArrayList<>();
-
-    @Override
-    public List<Categoria> listarCategorias() {
-        return categorias;
-    }
+    private final List<Categoria> listaCategorias =
+            new ArrayList<>();
 
     @Override
     public void guardarCategoria(Categoria categoria) {
-        categorias.add(categoria);
+
+        // NUEVA CATEGORÍA
+        if (categoria.getId_Categoria() == null ||
+                categoria.getId_Categoria().isEmpty()) {
+
+            categoria.setId_Categoria(
+                    generarIdCategoria()
+            );
+
+            listaCategorias.add(categoria);
+
+            return;
+        }
+
+        // ACTUALIZAR
+        Categoria existente =
+                buscarCategoria(
+                        categoria.getId_Categoria()
+                );
+
+        if (existente != null) {
+
+            existente.setCatNombre(
+                    categoria.getCatNombre()
+            );
+
+        } else {
+
+            listaCategorias.add(categoria);
+        }
     }
 
     @Override
-    public Categoria buscarPorId(String id) {
+    public List<Categoria> listarCategorias() {
 
-        for (Categoria categoria : categorias) {
-            if (categoria.getId_Categoria().equals(id)) {
-                return categoria;
-            }
-        }
-
-        return null;
+        return listaCategorias;
     }
 
     @Override
-    public void actualizarCategoria(Categoria categoriaActualizada) {
+    public Categoria buscarCategoria(String id) {
 
-        for (Categoria categoria : categorias) {
-
-            if (categoria.getId_Categoria().equals(categoriaActualizada.getId_Categoria())) {
-                categoria.setCatNombre(categoriaActualizada.getCatNombre());
-                break;
-            }
-        }
+        return listaCategorias.stream()
+                .filter(
+                        c -> c.getId_Categoria().equals(id)
+                )
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public void eliminarCategoria(String id) {
 
-        categorias.removeIf(categoria -> categoria.getId_Categoria().equals(id));
+        listaCategorias.removeIf(
+                c -> c.getId_Categoria().equals(id)
+        );
+    }
+
+    @Override
+    public void actualizarCategoria(
+            Categoria categoria) {
+
+        Categoria existente =
+                buscarCategoria(
+                        categoria.getId_Categoria()
+                );
+
+        if (existente != null) {
+
+            existente.setCatNombre(
+                    categoria.getCatNombre()
+            );
+        }
+    }
+
+    @Override
+    public String generarIdCategoria() {
+
+        int siguiente =
+                listaCategorias.size() + 1;
+
+        return String.format("C%04d", siguiente);
     }
 }
